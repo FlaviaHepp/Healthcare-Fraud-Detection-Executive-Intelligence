@@ -1,440 +1,187 @@
 # 🐍 Python — Machine Learning & Fraud Intelligence Pipeline
 
-## Overview
-
-This folder contains the Python implementation of the **Healthcare Fraud Detection & Executive Intelligence** Machine Learning pipeline.
-
-The objective is to transform healthcare claims data into predictive fraud intelligence through:
-
-* Data preprocessing
-* Exploratory Data Analysis
-* Feature engineering
-* Machine Learning
-* Model evaluation
-* Hyperparameter optimization
-* Explainable AI
-* Business insights
-* Automated results export
-
-The pipeline is designed to move from **raw claims data to interpretable fraud-risk predictions**.
+This folder contains the Python workflow used for data preparation, exploratory analysis, machine learning, explainability, business analysis, and result export.
 
 ---
 
-# 🧠 Machine Learning Architecture
+## 🎯 Objective
 
-```text id="2u4u9p"
-Healthcare Claims Data
-          │
-          ▼
-┌─────────────────────────┐
-│ Data Preprocessing      │
-│ Blocks 01–02            │
-└────────────┬────────────┘
-             ▼
-┌─────────────────────────┐
-│ Exploratory Analysis    │
-│ Blocks 03–04            │
-└────────────┬────────────┘
-             ▼
-┌─────────────────────────┐
-│ Feature Engineering     │
-│ Block 05                │
-└────────────┬────────────┘
-             ▼
-┌─────────────────────────┐
-│ Preprocessing           │
-│ Block 06                │
-└────────────┬────────────┘
-             ▼
-┌─────────────────────────┐
-│ Model Benchmarking      │
-│ Block 07                │
-└────────────┬────────────┘
-             ▼
-┌─────────────────────────┐
-│ Model Evaluation        │
-│ Block 08                │
-└────────────┬────────────┘
-             ▼
-┌─────────────────────────┐
-│ Hyperparameter Tuning   │
-│ Block 09                │
-└────────────┬────────────┘
-             ▼
-┌─────────────────────────┐
-│ Explainable AI          │
-│ Block 10                │
-└────────────┬────────────┘
-             ▼
-┌─────────────────────────┐
-│ Business Insights       │
-│ Block 11                │
-└────────────┬────────────┘
-             ▼
-┌─────────────────────────┐
-│ Results Export          │
-│ Block 12                │
-└─────────────────────────┘
-```
+Build a reproducible fraud detection workflow capable of:
+
+- Preparing healthcare claims data
+- Exploring distributions and fraud patterns
+- Engineering predictive features
+- Comparing classification models
+- Optimizing model hyperparameters
+- Evaluating predictive performance
+- Explaining predictions
+- Exporting results for downstream analytics
 
 ---
 
-# 📂 Pipeline Modules
-
-## 01–02 — Data Preprocessing
-
-Responsible for preparing the healthcare claims dataset for analysis.
-
-Main activities:
-
-* Dataset loading
-* Data type validation
-* Missing-value inspection
-* Initial data cleaning
-* Removal of non-predictive identifiers
-* Target definition
-* Train/test split
-
-The target variable is:
-
-```text id="0l2zlf"
-Is_Fraud
-```
-
----
-
-## 03–04 — Exploratory Data Analysis
-
-The exploratory analysis investigates:
-
-* Fraud distribution
-* Numerical variable distributions
-* Categorical variables
-* Claim amount patterns
-* Provider behavior
-* Patient characteristics
-* Correlations
-* Potential fraud indicators
-
-Visualization is used to identify patterns before modeling.
-
----
-
-## 05 — Feature Engineering
-
-Feature engineering transforms raw healthcare claim information into variables suitable for predictive modeling.
-
-Examples include:
-
-* Claim amount relationships
-* Provider claim frequency
-* Historical utilization
-* Length of stay
-* Prior visits
-* Chronic-condition indicators
-* Behavioral and financial patterns
-
-The objective is to improve the model's ability to distinguish legitimate claims from potentially fraudulent ones.
-
----
-
-# ⚙️ 06 — Preprocessing
-
-The preprocessing pipeline prepares the feature matrix for Machine Learning.
-
-Key operations include:
-
-* Numerical imputation
-* Categorical encoding
-* Feature scaling
-* Train/test transformation
-* Consistent preprocessing across models
-
-The implementation uses reusable preprocessing components to reduce the risk of training/validation inconsistencies.
-
----
-
-# 🤖 07 — Model Benchmarking
-
-Multiple classification algorithms are evaluated to identify the most suitable model for healthcare fraud detection.
-
-### Models
-
-| Model               | Purpose                                                     |
-| ------------------- | ----------------------------------------------------------- |
-| Logistic Regression | Interpretable baseline                                      |
-| Random Forest       | Nonlinear ensemble model                                    |
-| XGBoost             | Gradient boosting                                           |
-| LightGBM            | Efficient gradient boosting                                 |
-| CatBoost            | Gradient boosting with strong categorical-data capabilities |
-
-The models are benchmarked using common classification metrics while keeping the fraud-detection objective in focus.
-
----
-
-# 📊 08 — Model Evaluation
-
-The evaluation stage analyzes model performance using:
-
-* Accuracy
-* Precision
-* Recall
-* F1 Score
-* ROC-AUC
-* Confusion Matrix
-* ROC Curve
-
-For fraud detection, **Recall and Precision are particularly important**.
-
-### Why?
-
-A model with low recall may fail to identify fraudulent claims.
-
-A model with low precision may generate too many false positives and overload investigators with legitimate claims.
-
-Therefore, model selection considers the trade-off between detecting fraud and maintaining operational efficiency.
-
----
-
-# 🎯 09 — Hyperparameter Optimization
-
-The best-performing candidate model is further optimized through hyperparameter search.
-
-The optimization workflow is designed to identify better model configurations while maintaining validation discipline.
-
-The final optimized model is then used for downstream prediction and explainability.
-
----
-
-# 🔬 10 — Explainable AI
-
-Explainability is a core part of the fraud detection pipeline.
-
-The project uses:
-
-### SHAP
-
-SHAP values help quantify how individual features contribute to model predictions.
-
-This enables both:
-
-**Global interpretation**
+## 🔬 Workflow
 
 ```text
-Which features influence fraud predictions the most?
+Data Loading
+    ↓
+Data Quality & Preprocessing
+    ↓
+Exploratory Data Analysis
+    ↓
+Feature Engineering
+    ↓
+Model Preparation
+    ↓
+Model Benchmarking
+    ↓
+Hyperparameter Optimization
+    ↓
+Model Evaluation
+    ↓
+Explainable AI
+    ↓
+Business Insights
+    ↓
+Result Export
 ```
 
-and:
+---
 
-**Local interpretation**
+## 🤖 Models
+
+The project evaluates:
+
+- Logistic Regression
+- Random Forest
+- XGBoost
+- LightGBM
+- CatBoost
+
+The purpose of benchmarking several algorithms is to compare their behavior under the same analytical problem rather than relying on a single model.
+
+---
+
+## 📊 Evaluation Metrics
+
+The workflow includes:
+
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- ROC-AUC
+- Confusion Matrix
+- ROC Curve
+
+Fraud detection requires attention to both false positives and false negatives, so multiple metrics are considered together.
+
+---
+
+## 🧠 Explainable AI
+
+SHAP is used to analyze feature contributions and answer questions such as:
+
+> Which variables contributed most to a fraud prediction?
+
+This creates a bridge between:
 
 ```text
-Why was this specific claim classified as high risk?
+Model Prediction
+      ↓
+Feature Contribution
+      ↓
+Fraud Intelligence
 ```
-
-### Feature Importance
-
-Feature importance provides an additional model-level view of the variables driving predictive behavior.
 
 ---
 
-# 🚨 High-Risk Claims
+## 📦 Result Export
 
-The pipeline generates a high-risk claim population based on model predictions and fraud probabilities.
-
-This allows the analytical process to move from:
+The export workflow produces structured outputs such as:
 
 ```text
-All Claims
-     │
-     ▼
-Fraud Prediction
-     │
-     ▼
-Risk Probability
-     │
-     ▼
-High-Risk Claims
-     │
-     ▼
-Investigation Prioritization
+model_metrics.csv
+ml_predictions.csv
+confusion_matrix.csv
+roc_curve.csv
+feature_importance.csv
+high_risk_claims.csv
+shap_values.csv
 ```
 
-The objective is not simply to classify claims, but to help prioritize analytical and investigative resources.
+These files are stored in the repository's `results/` directory.
+
+The current export script writes these files to an `outputs` directory during local execution; for the GitHub structure, generated deliverables should be moved or copied into `results/`.
 
 ---
 
-# 💡 11 — Business Insights
+## 🗃️ Data
 
-The business-insights stage translates Machine Learning results into decision-oriented information.
+The main input dataset used by the workflow is:
 
-The analysis focuses on:
+```text
+healthcare_fraud_detection.csv
+```
 
-* Fraud exposure
-* High-risk claims
-* Potential financial impact
-* Claim-level risk
-* Model drivers
-* Provider behavior
-* Operational prioritization
+Recommended repository location:
 
-This layer bridges the gap between technical Machine Learning outputs and business decision-making.
+```text
+data/raw/healthcare_fraud_detection.csv
+```
 
----
-
-# 📤 12 — Results Export
-
-The final stage exports the outputs required by the downstream analytics layer.
-
-Examples include:
-
-* Model predictions
-* Fraud probabilities
-* High-risk claims
-* Feature importance
-* SHAP results
-* ROC curve data
-* Confusion matrix data
-* Model artifacts
-
-These outputs can then be consumed by the Power BI analytical layer.
+When the dataset is available under that path, the Python scripts should use the repository-relative path rather than a machine-specific absolute path.
 
 ---
 
-# 🧪 Model Outputs
+## 🛠️ Main Libraries
 
-The Python pipeline produces several analytical datasets:
+- Pandas
+- NumPy
+- Scikit-learn
+- XGBoost
+- LightGBM
+- CatBoost
+- SHAP
+- Matplotlib
+- Seaborn
+- Joblib
 
-```text id="c3t7d6"
-ml_predictions
-       │
-       ├── Claim_ID
-       ├── Actual
-       ├── Prediction
-       └── Fraud_Probability
+---
 
-high_risk_claims
-       │
-       └── Priority fraud candidates
+## ▶️ Reproducibility
 
-feature_importance
-       │
-       └── Model-level feature contribution
+Run the workflow from the repository root so relative paths resolve consistently.
 
-shap_values
-       │
-       └── Explainability results
+Recommended order:
 
-roc_curve
-       │
-       └── Classification performance
-
-confusion_matrix
-       │
-       └── Error analysis
+```text
+1. Load data
+2. Validate / preprocess
+3. Explore
+4. Engineer features
+5. Train models
+6. Evaluate
+7. Tune
+8. Explain
+9. Export results
 ```
 
 ---
 
-# 🛠️ Technology Stack
+## 🔗 Connection to Other Layers
 
-### Programming
-
-* Python
-
-### Data Processing
-
-* Pandas
-* NumPy
-
-### Visualization
-
-* Matplotlib
-* Seaborn
-
-### Machine Learning
-
-* Scikit-learn
-* XGBoost
-* LightGBM
-* CatBoost
-
-### Explainable AI
-
-* SHAP
-
-### Model Persistence
-
-* Joblib
-
----
-
-# 📁 Python Folder Structure
-
-```text id="j5ph0e"
-Python/
-│
-├── README.md
-│
-├── data_preprocessing.py
-├── exploratory_analysis.py
-├── feature_engineering.py
-├── preprocessing.py
-├── model_training.py
-├── evaluation.py
-├── hyperparameter_tuning.py
-├── explainability.py
-├── business_insights.py
-└── export_results.py
+```text
+Python
+   │
+   ├── models/     → trained model artifacts
+   │
+   └── results/    → metrics, predictions and explainability outputs
+                         │
+                         ▼
+                       SQL
+                         │
+                         ▼
+                    Power BI
 ```
 
----
-
-# 🔄 End-to-End Workflow
-
-```text id="xw9l4u"
-DATA
- │
- ▼
-CLEAN
- │
- ▼
-EXPLORE
- │
- ▼
-ENGINEER FEATURES
- │
- ▼
-PREPROCESS
- │
- ▼
-TRAIN MODELS
- │
- ▼
-EVALUATE
- │
- ▼
-OPTIMIZE
- │
- ▼
-EXPLAIN
- │
- ▼
-IDENTIFY HIGH-RISK CLAIMS
- │
- ▼
-GENERATE BUSINESS INSIGHTS
- │
- ▼
-EXPORT RESULTS
-```
-
----
-
-# 🎯 Objective
-
-The Python layer demonstrates a complete Machine Learning workflow for fraud detection, combining predictive performance with explainability and business interpretation.
-
-The ultimate goal is:
-
-> **Detect suspicious claims, understand why they are risky, quantify their potential impact, and transform predictions into actionable intelligence.**
+Python is therefore the main predictive and analytical layer of the project.
