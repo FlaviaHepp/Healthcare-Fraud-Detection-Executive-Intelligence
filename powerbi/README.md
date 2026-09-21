@@ -1,271 +1,176 @@
 # 📊 Power BI — Healthcare Fraud Intelligence
 
-## Overview
+This folder contains the Power BI reporting layer of the **Healthcare Fraud Detection & Executive Intelligence** project.
 
-The **Power BI layer** transforms the analytical outputs of the Healthcare Fraud Detection project into an interactive business intelligence environment.
-
-The dashboard is designed to provide an executive view of:
-
-* Fraud activity
-* Claim volume
-* Fraud rates
-* Financial exposure
-* Provider risk
-* Claim characteristics
-* Geographic patterns
-* Operational indicators
-
-The objective is to move from **raw analytical results to actionable business intelligence**.
+The objective is to translate analytical and machine learning outputs into an executive-oriented reporting experience.
 
 ---
 
-## 🎯 Dashboard Objectives
+## 🎯 Objective
 
-The Power BI solution answers key business questions:
-
-### Fraud Monitoring
-
-* How many claims are potentially fraudulent?
-* What percentage of claims are associated with fraud?
-* What is the estimated financial exposure?
-* How does fraud evolve across different categories?
-
-### Risk Analysis
-
-* Which providers present higher fraud risk?
-* Which procedures or diagnoses are associated with suspicious claims?
-* Which insurance categories show greater exposure?
-* Which geographic areas require additional attention?
-
-### Executive Decision Support
-
-The dashboard allows stakeholders to quickly identify:
-
-**What is happening → Where is the risk → What requires attention**
-
----
-
-# 🧩 Data Model
-
-The Power BI model is based on the SQL analytical structure.
-
-### Fact Table
+The dashboard is designed to move from:
 
 ```text
-fact_claims
+KPI
+ ↓
+Pattern
+ ↓
+Risk
+ ↓
+Investigation
 ```
 
-Contains the healthcare claim-level transactional information.
+rather than presenting a collection of disconnected charts.
 
-### Dimension Tables
+---
+
+## 📊 Executive KPIs
+
+The reporting layer includes metrics such as:
+
+- Total Claims
+- Claimed Amount
+- Approved Amount
+- Rejected Amount
+- Fraud Cases
+- Fraud Rate
+- Avg. Claim Amount
+- Avg. Approved Amount
+- Recoverable Amount
+- Fraud Risk
+
+---
+
+## 🔍 Fraud Intelligence
+
+The dashboard supports analysis across:
+
+### Medical Specialty
+`Fraud Rate by Medical Specialty`
+
+### Diagnosis
+`Fraud Cases by Diagnosis`
+
+### Insurance
+`Fraud Rate by Insurance Type`
+
+### Visit Type
+`Fraud Rate by Visit Type`
+
+### Geography
+`Fraud Cases & Claimed Amount by State`
+
+---
+
+## 🏥 Provider Intelligence
+
+The provider section focuses on patterns such as:
+
+- Top Providers by Fraud Cases
+- Provider fraud rate
+- High-risk providers
+- Provider-level claim exposure
+
+---
+
+## ⚠️ Risk Intelligence
+
+Risk views include:
+
+- Claim Risk Distribution
+- High-risk claims
+- Fraud probability / prediction outputs where available
+- Financial exposure associated with suspicious claims
+
+---
+
+## 🤖 Machine Learning Integration
+
+Python generates structured outputs such as:
 
 ```text
-dim_claim_status
-dim_diagnosis
-dim_insurance
-dim_procedures
-dim_providers
-dim_states
-dim_visit_types
+ml_predictions.csv
+model_metrics.csv
+high_risk_claims.csv
+feature_importance.csv
+shap_values.csv
 ```
 
-The dimensional structure supports filtering and analysis across multiple business perspectives.
+The SQL layer also contains dedicated ML integration objects.
 
----
-
-# 🔗 Data Relationships
-
-The model follows a fact-and-dimension architecture.
+This creates a modular flow:
 
 ```text
-                    ┌───────────────────┐
-                    │ dim_claim_status  │
-                    └─────────┬─────────┘
-                              │
-                              │
-┌───────────────────┐         ▼
-│  dim_diagnosis    │────► fact_claims ◄────┌──────────────────┐
-└───────────────────┘                       │ dim_providers    │
-                                           └──────────────────┘
-                              ▲
-                              │
-┌───────────────────┐         │         ┌──────────────────┐
-│ dim_insurance     │─────────┘         │ dim_procedures   │
-└───────────────────┘                   └──────────────────┘
+Python ML
+    ↓
+Predictions / Results
+    ↓
+SQL Analytical Layer
+    ↓
+Power BI
 ```
 
-This structure provides a clean foundation for interactive reporting.
+The current portfolio version keeps these components modular and does not require a live SQL Server → Power BI connection.
 
 ---
 
-# 📐 DAX Measures
+## 🧮 DAX & Data Modeling
 
-The dashboard uses DAX measures to calculate the principal KPIs.
+The report uses:
 
-### Total Transactions
+- DAX measures
+- Business-oriented display names
+- Data modeling
+- KPI cards
+- Gauges
+- Analytical charts
+- Executive summaries
 
-```DAX
-Total Transactions =
-COUNTROWS(fact_claims)
-```
-
-### Fraud Cases
-
-```DAX
-Fraud Cases =
-COUNTROWS(
-    FILTER(
-        fact_claims,
-        fact_claims[is_fraud_num] = 1
-    )
-)
-```
-
-### Fraud Rate
-
-```DAX
-Fraud Rate % =
-DIVIDE(
-    [Fraud Cases],
-    [Total Transactions],
-    0
-)
-```
-
-These measures allow the dashboard to dynamically respond to filters and slicers.
+Underlying database field names can remain unchanged while visible Power BI labels are presented in recruiter-friendly English.
 
 ---
 
-# 📌 Executive KPIs
+## 🗂️ Power BI Folder
 
-The dashboard focuses on high-value indicators such as:
-
-| KPI                | Business Purpose                    |
-| ------------------ | ----------------------------------- |
-| Total Claims       | Measure overall claim volume        |
-| Fraud Cases        | Quantify detected suspicious claims |
-| Fraud Rate         | Monitor relative fraud prevalence   |
-| Financial Exposure | Estimate potential financial impact |
-| Provider Risk      | Identify higher-risk providers      |
-| Geographic Risk    | Identify areas requiring attention  |
-
----
-
-# 📊 Dashboard Components
-
-The Power BI solution includes analytical views focused on different aspects of fraud detection.
-
-### Executive Overview
-
-Provides a high-level summary of fraud activity and financial exposure.
-
-### Fraud Analysis
-
-Explores fraud patterns across claim characteristics and business dimensions.
-
-### Provider Intelligence
-
-Highlights provider-level risk patterns and potential investigation priorities.
-
-### Geographic Analysis
-
-Allows fraud activity to be explored across geographic dimensions.
-
-### Claim Analysis
-
-Provides detailed analysis of claim characteristics associated with suspicious activity.
-
----
-
-# 🎨 Dashboard Design Principles
-
-The dashboard follows an executive-oriented design approach:
-
-* Limited number of high-value KPIs
-* Clear visual hierarchy
-* Concise chart titles
-* Consistent terminology
-* Interactive filtering
-* Emphasis on risk indicators
-* Reduced visual clutter
-* Business-oriented storytelling
-
-The goal is not to display every available metric, but to highlight the information most relevant to decision-making.
-
----
-
-# 🔍 Analytical Questions
-
-The dashboard enables users to investigate questions such as:
-
-> Which providers require additional investigation?
-
-> Which procedures have higher fraud exposure?
-
-> Where is fraud concentrated geographically?
-
-> How significant is fraud relative to total claims?
-
-> Which segments represent the greatest financial risk?
-
----
-
-# 🚀 Business Impact
-
-The Power BI layer converts technical analytics into an environment that can be used by non-technical stakeholders.
-
-Instead of requiring users to interpret Python models or SQL queries directly, the dashboard provides a visual interface for:
-
-**Monitoring → Investigation → Prioritization → Decision-making**
-
----
-
-# 🗂️ Files
-
-The Power BI folder contains the dashboard-related assets used in the project.
+Recommended structure:
 
 ```text
-Power_BI/
-│
-├── dashboard/
-│   └── Healthcare_Fraud_Intelligence.pbix
-│
-├── measures/
-│   └── DAX_Measures.md
-│
+power_bi/
+├── Healthcare_Fraud_Detection_Executive_Intelligence.pbix
 └── README.md
 ```
 
-> File names may vary depending on the final repository structure.
+The PBIX file is the interactive reporting artifact.
 
 ---
 
-# 🔄 Integration with the Project
+## 📸 Documentation
 
-Power BI represents the final analytical layer:
+Dashboard screenshots are maintained separately in:
 
 ```text
-Python
-   ↓
-Machine Learning & Insights
-   ↓
-SQL
-   ↓
-Analytical Data Model
-   ↓
-Power BI
-   ↓
-Executive Intelligence
+screenshots/
 ```
 
-This integration demonstrates an end-to-end approach combining:
+Selected visuals used inside documentation can be stored in:
 
-**Python + Machine Learning + SQL + Power BI**
+```text
+images/power_bi/
+```
+
+Avoid duplicating the same image in both locations.
 
 ---
 
-# 📈 Final Objective
+## 👔 Business Perspective
 
-The ultimate objective of the dashboard is to help transform fraud detection from a purely technical task into a **business intelligence and risk management process**.
+The reporting layer is designed to help stakeholders answer:
 
-> **Detect the risk. Understand the pattern. Prioritize the investigation. Support the decision.**
+- How much fraud is being detected?
+- What is the fraud rate?
+- Which areas show higher exposure?
+- Which providers show notable fraud patterns?
+- What claims may warrant further investigation?
+- What is the potential financial exposure?
+
+Power BI therefore acts as the **executive intelligence layer** of the project.
